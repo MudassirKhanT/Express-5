@@ -7,4 +7,26 @@ Steps:-
             export const connectDb=()=>{
                 mongoose.coonect(process.env.db_url)
             }
-    v)import it in server.js file using try{}Catch{} Block
+    v)import it in server.js file using try{}Catch{} 
+usage:-
+    i)create Schema
+
+    Ex:-const userSchema = mongoose.Schema({
+        details
+    },{timestamps:true})
+    export const User = mongoose.model("User",userSchema)
+
+    ii)Create a seperate folder for routing
+
+        Ex:-const router = express.Router()
+        router.post("/api/users",assync(req,res)=>{
+            const {name,email,password} = req.body
+            //Import the Schema And Create an User
+            //As creating user can take time make it async and await
+
+            const result = await User.create({
+                name,email,password
+            })
+            //Status code 201 for user creation
+            res.status(201).json({id:result._id})
+        })

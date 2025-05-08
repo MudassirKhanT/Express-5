@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
-import { ConnectDb } from "./db.js";
+import { ConnectDb } from "./src/config/db.js";
+import userRouter from "./src/user/user-route.js";
 //Instance of the application
 const app = express();
 
@@ -22,7 +23,7 @@ const reqLogger = (req, res, next) => {
   next();
 };
 //TO Execute everytime use globally
-// app.use(reqLogger);
+app.use(reqLogger);
 
 app.get("/health", (req, res) => {
   //   console.log(req.query);
@@ -41,15 +42,21 @@ app.get("/health", (req, res) => {
 // });
 
 //Custom middleware pass teh middle  ware between the handler
-app.post("/api/users", reqLogger, (req, res) => {
-  //   console.log("body:", req.body);
-  throw new Error("Something went wrong!");
-  res.json({});
-});
+// app.post("/api/users", reqLogger, (req, res) => {
+//   //   console.log("body:", req.body);
+//   //   throw new Error("Something went wrong!");
+
+//   res.json({});
+// });
+
+//-----------register Routes---------
+app.use("/api/users", userRouter);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).json({ message: "Something Broke!" });
+  const errorMessage = err.message;
+  const statusCode = err.statusCode;
+  res.status(statusCode).json({ message: errorMessage });
 });
 
 const PORT = process.env.PORT || 4000;
