@@ -1,14 +1,20 @@
 import express from "express";
 import cors from "cors";
+import { ConnectDb } from "./db.js";
 //Instance of the application
 const app = express();
+
+//Database Connectivity
+try {
+  ConnectDb();
+  console.log("connected to Db");
+} catch (err) {
+  console.log(err);
+}
+
 //Global Middleware
 app.use(cors());
 app.use(express.json());
-//To use the server you need to use the function of app.use()
-// 1) ---- app.use(bodyParser.urlencoded());----
-//2) app.use(express.json())---------To parse the body best practice
-//3) express.json() is a middle ware
 
 //Custom Middleware
 const reqLogger = (req, res, next) => {
@@ -41,8 +47,6 @@ app.post("/api/users", reqLogger, (req, res) => {
   res.json({});
 });
 
-//Error Handling Middleware should be called at last of the routes
-//Recieves 4 params like req,res,next,error
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ message: "Something Broke!" });

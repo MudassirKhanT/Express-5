@@ -55,3 +55,6 @@ middleware:-Simple Js Function
     });
 4)Third Party MiddleWare:-
     i)Name:-Cors MiddleWare
+    ii)For cross origin Errors
+    iii)It is a global middleWare
+    Ex:-app.use(cors())
