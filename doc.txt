@@ -15,7 +15,7 @@ app.post("/api/users", (req, res) => {
 });
 
 
-middleware:-
+middleware:-Simple Js Function
 
 //Basic without middleware
 
@@ -24,3 +24,14 @@ middleware:-
 //With middleware
 
     request------->middleware----->Handler-------->response
+                [Token validation]
+
+//Multiple Chaining of middleware
+
+    request--->m1--->m2--->m3--->Handler---->response
+
+1)Global middleWare:-
+    when you use middleWare on app then it is a global middleware
+    Ex:-app.use(express.json())
+
+2)Custom middleware:-

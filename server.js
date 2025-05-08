@@ -8,6 +8,13 @@ const app = express();
 //2) app.use(express.json())---------To parse the body best practice
 //3) express.json() is a middle ware
 app.use(express.json());
+//Custom Middleware
+const reqLogger = (req, res, next) => {
+  console.log(`${req.method} ${req.url} ${new Date().toISOString}`);
+  next();
+};
+//TO Execute everytime use globally
+// app.use(reqLogger);
 
 app.get("/health", (req, res) => {
   //   console.log(req.query);
@@ -19,8 +26,15 @@ app.get("/health", (req, res) => {
 });
 
 //To get req.body parse the data using data-parser.urlEndcoded()
-app.post("/api/users", (req, res) => {
-  console.log("body:", req.body);
+// app.post("/api/users", (req, res) => {
+//   console.log("body:", req.body);
+
+//   res.json({});
+// });
+
+//Custom middleware pass teh middle  ware between the handler
+app.post("/api/users", reqLogger, (req, res) => {
+  //   console.log("body:", req.body);
 
   res.json({});
 });
