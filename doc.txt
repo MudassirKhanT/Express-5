@@ -35,3 +35,21 @@ middleware:-Simple Js Function
     Ex:-app.use(express.json())
 
 2)Custom middleware:-
+    i) Write the function middleware
+    ii) Use it in between the request
+    ---------MiddleWare Function------
+    Ex:-const reqHandler(req,res,next)=>{
+        console.log(req.body)
+        next()
+    }
+    iii) Use it in the route, Here we have used our middleware in between url and Handler
+    Ex:-app.post("/health/users",reqHandler,(req,res)=>{
+        res.json({})
+    })
+3)Error Handing MiddleWare
+    i)Error Handling Middleware should be called at last of the routes
+    ii)Recieves 4 params like req,res,next,error
+    app.use((err, req, res, next) => {
+        console.error(err.stack);
+        res.status(500).json({ message: "Something Broke!" });
+    });

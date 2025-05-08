@@ -1,5 +1,5 @@
 import express from "express";
-import bodyParser from "body-parser";
+
 //Instance of the application
 const app = express();
 
@@ -35,8 +35,15 @@ app.get("/health", (req, res) => {
 //Custom middleware pass teh middle  ware between the handler
 app.post("/api/users", reqLogger, (req, res) => {
   //   console.log("body:", req.body);
-
+  throw new Error("Something went wrong!");
   res.json({});
+});
+
+//Error Handling Middleware should be called at last of the routes
+//Recieves 4 params like req,res,next,error
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: "Something Broke!" });
 });
 
 const PORT = process.env.PORT || 4000;
