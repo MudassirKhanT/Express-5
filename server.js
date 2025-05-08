@@ -1,13 +1,15 @@
 import express from "express";
-
+import cors from "cors";
 //Instance of the application
 const app = express();
-
+//Global Middleware
+app.use(cors());
+app.use(express.json());
 //To use the server you need to use the function of app.use()
 // 1) ---- app.use(bodyParser.urlencoded());----
 //2) app.use(express.json())---------To parse the body best practice
 //3) express.json() is a middle ware
-app.use(express.json());
+
 //Custom Middleware
 const reqLogger = (req, res, next) => {
   console.log(`${req.method} ${req.url} ${new Date().toISOString}`);

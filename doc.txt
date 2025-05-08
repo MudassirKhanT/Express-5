@@ -53,3 +53,5 @@ middleware:-Simple Js Function
         console.error(err.stack);
         res.status(500).json({ message: "Something Broke!" });
     });
+4)Third Party MiddleWare:-
+    i)Name:-Cors MiddleWare
