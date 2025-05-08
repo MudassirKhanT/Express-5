@@ -1,11 +1,28 @@
 import express from "express";
+import bodyParser from "body-parser";
 //Instance of the application
 const app = express();
 
 //To use the server you need to use the function of app.use()
+// 1) ---- app.use(bodyParser.urlencoded());----
+//2) app.use(express.json())---------To parse the body best practice
+//3) express.json() is a middle ware
+app.use(express.json());
 
-app.get("/", (req, res) => {
-  return res.send("Home Page!");
+app.get("/health", (req, res) => {
+  //   console.log(req.query);
+
+  //Content-type:application/json
+  //   res.json({ message: "All Good!" });
+  //Content-type:text/html
+  res.send("Home Page!");
+});
+
+//To get req.body parse the data using data-parser.urlEndcoded()
+app.post("/api/users", (req, res) => {
+  console.log("body:", req.body);
+
+  res.json({});
 });
 
 const PORT = process.env.PORT || 4000;
