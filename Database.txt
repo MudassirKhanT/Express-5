@@ -1,0 +1,10 @@
+Steps:-
+    i)Install mongoose
+    ii)create a file db
+    iii)store Db url in .env
+    iv)write a function of db coonection
+        Ex:-
+            export const connectDb=()=>{
+                mongoose.coonect(process.env.db_url)
+            }
+    v)import it in server.js file using try{}Catch{} Block
